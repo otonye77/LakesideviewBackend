@@ -31,3 +31,15 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Custom ignores ###
+# Ignore application.properties file
+application.properties
+
+# Ignore other sensitive or local configuration files
+*.env
+.env.local
+.env.*.local
+
+# Ignore log files
+*.log
