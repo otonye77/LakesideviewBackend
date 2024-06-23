@@ -1,10 +1,18 @@
 package com.lakeside.lakesidehotel.response;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.apache.tomcat.util.codec.binary.Base64;
 
 import java.math.BigDecimal;
 import java.util.List;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class RoomResponse {
     private Long id;
     private String roomType;
@@ -19,7 +27,8 @@ public class RoomResponse {
         this.roomPrice = roomPrice;
     }
 
-    public RoomResponse(Long id, String roomType, BigDecimal roomPrice, Boolean isBooked, byte[] photoBytes, List<BookingResponse> bookings) {
+    public RoomResponse(Long id, String roomType, BigDecimal roomPrice, boolean isBooked,
+                        byte[] photoBytes , List<BookingResponse> bookings) {
         this.id = id;
         this.roomType = roomType;
         this.roomPrice = roomPrice;

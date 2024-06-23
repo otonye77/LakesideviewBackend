@@ -21,7 +21,7 @@ import java.sql.SQLException;
 @RequestMapping("/rooms")
 public class RoomController {
     private final IRoomService roomService;
-    @PostMapping(value = "/add/new-room")
+    @PostMapping(value = "/add/new-room", produces = "application/json")
     public ResponseEntity<RoomResponse> addNewRoom(
             @RequestParam("photo") MultipartFile photo,
             @RequestParam("roomType") String roomType,
