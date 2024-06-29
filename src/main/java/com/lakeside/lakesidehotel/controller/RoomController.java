@@ -48,6 +48,8 @@ public class RoomController {
         return roomService.getAllRoomTypes();
     }
 
+    @GetMapping("/all-rooms")
+    @CrossOrigin(origins = "http://localhost:5173")
     public ResponseEntity<List<RoomResponse>> getAllRooms() throws SQLException {
         List<Room> rooms = roomService.getAllRooms();
         List<RoomResponse> roomResponses = new ArrayList<>();
@@ -63,10 +65,17 @@ public class RoomController {
         return ResponseEntity.ok(roomResponses);
     }
 
+    @DeleteMapping("/delete/room/{roomId}")
+    @CrossOrigin(origins = "http://localhost:5173")
+    public ResponseEntity<Void> deleteRoom(@PathVariable long roomId){
+        roomService.deleteRoom(roomId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
     private RoomResponse getRoomResponse(Room room) {
         List<BookedRoom> bookings = getAllBookingsByRoomId(room.getId());
-        List<BookingResponse> bookingInfo = bookings.stream()
-                .map(booking -> new BookingResponse(booking.getBookingId(), booking.getCheckInDate(), booking.getCheckOutDate(), booking.getBookingConfirmationCode())).toList();
+//        List<BookingResponse> bookingInfo = bookings.stream()
+//                .map(booking -> new BookingResponse(booking.getBookingId(), booking.getCheckInDate(), booking.getCheckOutDate(), booking.getBookingConfirmationCode())).toList();
         byte[] photoBytes = null;
         Blob photoBlob = room.getPhoto();
         if(photoBlob != null){
@@ -81,9 +90,7 @@ public class RoomController {
                 room.getRoomType(),
                 room.getRoomPrice(),
                 room.getIsBooked(),
-                photoBytes,
-                bookingInfo
-        );
+                photoBytes);
     }
 
     private List<BookedRoom> getAllBookingsByRoomId(Long roomId) {
